@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+                android:id="@+id/home"
+                android:icon="@drawable/home_ic"
+                android:title="الرئيسية"/>
+        <item
+                android:id="@+id/about"
+                android:icon="@drawable/auth_ic"
+                android:title="عن الكاتب"/>
+        <item
+                android:id="@+id/team"
+                android:icon="@drawable/team_ic"
+                android:title="فريق Arab Lancer"/>
+        <item
+                android:id="@+id/order"
+                android:icon="@drawable/order_icon"
+                android:title="لطلبات البرمجيات"/>
+        <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="مشاركة"/>
+    </group>
+
+
+
+</menu>
