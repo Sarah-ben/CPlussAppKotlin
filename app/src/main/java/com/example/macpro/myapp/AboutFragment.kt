@@ -1,11 +1,14 @@
 package com.example.macpro.myapp
 
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_about.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -27,5 +30,22 @@ class AboutFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_about, container, false)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        email_but.setOnClickListener {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("mailto:" + "info@ali-gamal.com" + "?subject=" + " رسالة من التطبيق"))
+            )
+        }
+        face_but.setOnClickListener {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://www.facebook.com/abdulkhaleqhajj"))
+            )
+        }
+    }
 
 }
