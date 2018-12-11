@@ -10,7 +10,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_home.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -35,8 +41,10 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        fitshData()
+
         recycler_home.layoutManager = LinearLayoutManager(this.context,LinearLayout.VERTICAL,false)
-        recycler_home.adapter = adapter_home()
 
         exit.setOnClickListener {
             activity?.finish()
@@ -57,5 +65,28 @@ class HomeFragment : Fragment() {
         }
     }
 
+    fun fitshData(){
+        val url = "http://www.arablancer.org/cplasplas/public/api/"
+        val retrofit = Retrofit.Builder()
+            .baseUrl(url)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val Api :API = retrofit.create(API::class.java)
+        val call = Api.getdata()
+        var item = call.enqueue(object :Callback<ArrayList<data>>{
+            override fun onFailure(call: Call<ArrayList<data>>, t: Throwable) {
+               Toast.makeText(activity,"غير قادر على الإتصال بالسيرفر",Toast.LENGTH_LONG).show()
+            }
+
+            override fun onResponse(call: Call<ArrayList<data>>, response: Response<ArrayList<data>>) {
+//                Toast.makeText(activity, response.body()?.get(1)?.index_name,Toast.LENGTH_LONG).show()
+            var allData : ArrayList<data>? = response.body()
+                Toast.makeText(activity, allData?.get(1)?.index_name,Toast.LENGTH_LONG).show()
+                recycler_home.adapter = adapter_home(allData!!)
+            }
+
+        })
+
+    }
 
 }

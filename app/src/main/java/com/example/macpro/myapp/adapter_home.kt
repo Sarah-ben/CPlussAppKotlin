@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import kotlinx.android.synthetic.main.home_item.view.*
 
-class adapter_home() :RecyclerView.Adapter<adapter_home.ViewHolderIndex>() {
+class adapter_home(var data : ArrayList<data>) :RecyclerView.Adapter<adapter_home.ViewHolderIndex>() {
 
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, p1: Int): adapter_home.ViewHolderIndex {
@@ -15,13 +17,17 @@ class adapter_home() :RecyclerView.Adapter<adapter_home.ViewHolderIndex>() {
     }
 
     override fun getItemCount(): Int {
-       return 9
+       return data.size
     }
 
     override fun onBindViewHolder(p0: adapter_home.ViewHolderIndex, p1: Int) {
-
+        val data = data!![p1]
+        p0.bind(data)
     }
     class ViewHolderIndex(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
+            fun bind ( mydata : data){
+                val name_lesson = itemView.title as TextView
+                name_lesson.text = mydata.index_name
+            }
     }
 }
