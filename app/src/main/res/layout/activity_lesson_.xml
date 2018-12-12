@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".lesson_Activity">
+
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="71dp" app:srcCompat="@drawable/back" android:id="@+id/imageView5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" android:scaleType="centerCrop" android:alpha=".5"
+            app:layout_constraintHorizontal_bias="0.0"/>
+    <TextView
+            android:text="عنوان الدرس"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/title_text" app:layout_constraintEnd_toEndOf="@+id/imageView5"
+            app:layout_constraintStart_toStartOf="@+id/imageView5"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="@+id/imageView5"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView5" android:layout_marginStart="8dp"
+            android:textAlignment="center" android:fontFamily="@font/droid" android:textColor="#ffffff"/>
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp" app:layout_constraintTop_toBottomOf="@+id/imageView5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                      android:orientation="vertical">
+            <TextView
+                    android:text="محتوى الدرس"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" tools:layout_editor_absoluteY="278dp"
+                    tools:layout_editor_absoluteX="162dp" android:id="@+id/con_text" android:fontFamily="@font/droid"
+                    android:textAlignment="textStart"/>
+        </LinearLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

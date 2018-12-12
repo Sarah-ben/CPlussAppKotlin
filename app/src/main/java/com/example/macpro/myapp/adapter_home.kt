@@ -1,5 +1,7 @@
 package com.example.macpro.myapp
 
+import android.app.Activity
+import android.content.Intent
 import android.support.v7.view.menu.ActionMenuItemView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -28,6 +30,12 @@ class adapter_home(var data : ArrayList<data>) :RecyclerView.Adapter<adapter_hom
             fun bind ( mydata : data){
                 val name_lesson = itemView.title as TextView
                 name_lesson.text = mydata.index_name
+                itemView.setOnClickListener {
+                val intent = Intent(itemView.context,lesson_Activity::class.java)
+                    intent.putExtra("title",mydata.index_name)
+                    intent.putExtra("cont",mydata.lesson)
+                    itemView.context.startActivity(intent)
+                }
             }
     }
 }
