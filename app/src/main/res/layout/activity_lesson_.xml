@@ -37,6 +37,9 @@
                     android:layout_height="match_parent" tools:layout_editor_absoluteY="278dp"
                     tools:layout_editor_absoluteX="162dp" android:id="@+id/con_text" android:fontFamily="@font/droid"
                     android:textAlignment="textStart"/>
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" app:srcCompat="@drawable/back" android:id="@+id/image_lesson"/>
         </LinearLayout>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

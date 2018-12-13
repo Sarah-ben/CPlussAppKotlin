@@ -34,6 +34,7 @@ class adapter_home(var data : ArrayList<data>) :RecyclerView.Adapter<adapter_hom
                 val intent = Intent(itemView.context,lesson_Activity::class.java)
                     intent.putExtra("title",mydata.index_name)
                     intent.putExtra("cont",mydata.lesson)
+                    intent.putExtra("image",mydata.image_url)
                     itemView.context.startActivity(intent)
                 }
             }
