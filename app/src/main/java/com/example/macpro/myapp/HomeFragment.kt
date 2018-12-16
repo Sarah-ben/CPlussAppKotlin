@@ -11,6 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
+import io.realm.Realm
+import io.realm.RealmConfiguration
 import kotlinx.android.synthetic.main.fragment_home.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,11 +43,11 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        Realm.init(activity)
         fitshData()
 
         recycler_home.layoutManager = LinearLayoutManager(this.context,LinearLayout.VERTICAL,false)
-
+        recycler_home.adapter = adapter_home()
         exit.setOnClickListener {
             activity?.finish()
         }
@@ -79,10 +81,22 @@ class HomeFragment : Fragment() {
             }
 
             override fun onResponse(call: Call<ArrayList<data>>, response: Response<ArrayList<data>>) {
-//                Toast.makeText(activity, response.body()?.get(1)?.index_name,Toast.LENGTH_LONG).show()
+            var config = RealmConfiguration.Builder()
+                .name("cplass.realm")
+                .build()
+                var realm = Realm.getInstance(config)
             var allData : ArrayList<data>? = response.body()
-                Toast.makeText(activity, allData?.get(1)?.index_name,Toast.LENGTH_LONG).show()
-                recycler_home.adapter = adapter_home(allData!!)
+//
+                realm.executeTransaction {
+                    for (i in allData!!){
+                        val lesson = realm.createObject(DataBase::class.java,i.id)
+                        lesson.index_name = i.index_name
+                        lesson.image_url = i.image_url
+                        lesson.lesson = i.lesson
+                    }
+                }
+
+                recycler_home.adapter = adapter_home()
             }
 
         })
