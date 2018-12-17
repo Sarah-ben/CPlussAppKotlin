@@ -87,14 +87,29 @@ class HomeFragment : Fragment() {
                 var realm = Realm.getInstance(config)
             var allData : ArrayList<data>? = response.body()
 //
-                realm.executeTransaction {
-                    for (i in allData!!){
-                        val lesson = realm.createObject(DataBase::class.java,i.id)
-                        lesson.index_name = i.index_name
-                        lesson.image_url = i.image_url
-                        lesson.lesson = i.lesson
+                if(realm.where(DataBase::class.java).findAll().isEmpty()){
+                    realm.executeTransaction {
+                        for (i in allData!!){
+                            val lesson = realm.createObject(DataBase::class.java,i.id)
+                            lesson.index_name = i.index_name
+                            lesson.image_url = i.image_url
+                            lesson.lesson = i.lesson
+                        }
                     }
                 }
+                if(realm.where(DataBase::class.java).findAll().size != allData!!.size){
+
+                    realm.executeTransaction {
+                        realm.deleteAll()
+                        for (i in allData!!){
+                            val lesson = realm.createObject(DataBase::class.java,i.id)
+                            lesson.index_name = i.index_name
+                            lesson.image_url = i.image_url
+                            lesson.lesson = i.lesson
+                        }
+                    }
+                }
+
 
                 recycler_home.adapter = adapter_home()
             }
