@@ -11,6 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -19,7 +21,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
+import com.google.android.gms.ads.MobileAds
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,7 +33,7 @@ private const val ARG_PARAM2 = "param2"
  *
  */
 class HomeFragment : Fragment() {
-
+    lateinit var mInterstitialAd: InterstitialAd
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,11 +45,16 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        MobileAds.initialize(this.context, "ca-app-pub-2505688435160257~1862231497")
+        mInterstitialAd = InterstitialAd(this.context)
+        mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/1033173712"
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
+
         Realm.init(activity)
         fitshData()
 
         recycler_home.layoutManager = LinearLayoutManager(this.context,LinearLayout.VERTICAL,false)
-        recycler_home.adapter = adapter_home()
+        recycler_home.adapter = adapter_home(mInterstitialAd)
         exit.setOnClickListener {
             activity?.finish()
         }
@@ -110,8 +117,7 @@ class HomeFragment : Fragment() {
                     }
                 }
 
-
-                recycler_home.adapter = adapter_home()
+                recycler_home.adapter = adapter_home(mInterstitialAd)
             }
 
         })

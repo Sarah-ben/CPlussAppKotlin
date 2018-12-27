@@ -13,17 +13,23 @@ import android.view.MenuItem
 import android.view.View
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var mAdView : AdView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        mAdView = findViewById(R.id.adView)
+        MobileAds.initialize(this, "ca-app-pub-2505688435160257~1862231497")
+        mAdView = findViewById<View>(R.id.adView) as AdView
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
+
+
 
         setSupportActionBar(toolbar)
         if(savedInstanceState == null){
